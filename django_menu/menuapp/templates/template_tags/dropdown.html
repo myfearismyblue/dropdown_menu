@@ -1,0 +1,18 @@
+{% load draw_dropdown %}
+{% with nodes=node.nodes.all %}
+    {% for node in nodes %}
+            {% if node.nodes.all %}
+                <li>
+                    <a href="{{ node.get_url }}"><label for="droppable">{{ node.value }}</label></a>
+                    <input type="checkbox"  id="droppable" {% is_checked node %} />
+                    <ol>
+                        {% draw_dropdown node %}
+                    </ol>
+                </li>
+            {% else %}
+                <li class="leaf">
+                    <a href="{{ node.get_url }}">{{ node.value }} </a>
+                </li>
+            {% endif %}
+    {% endfor %}
+{% endwith %}
